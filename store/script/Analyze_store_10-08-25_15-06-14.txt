@@ -1,0 +1,26 @@
+# Детальный анализ изменений
+## Сравниваемые версии
+- Предыдущая: store_10-08-25_14-10-13.txt
+- Текущая: store_10-08-25_15-06-14.txt
+## Дата анализа: 10-08-2025 15:06:20
+
+## Изменения в моделях
+### Новая модель: Request
+1. Request
+Поля: id: BigAutoField, created_at: DateTimeField, status: CharField(20), notes: TextField
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at, get_status_display
+
+### Новая модель: RequestItem
+1. RequestItem
+Поля: id: BigAutoField, request: ForeignKey, product: ForeignKey, quantity: PositiveIntegerField, price_per_unit: DecimalField...
+Есть метод clean()
+
+## Изменения в админке
+### Новый администратор: RequestAdmin
+- RequestAdmin
+Отображаемые поля: ('id', 'created_at', 'status_display')
+
+### Новый администратор: RequestItemAdmin
+- RequestItemAdmin
+Отображаемые поля: ('product', 'request_link', 'quantity')
