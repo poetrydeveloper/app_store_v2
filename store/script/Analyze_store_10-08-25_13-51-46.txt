@@ -1,0 +1,36 @@
+# Детальный анализ изменений
+## Сравниваемые версии
+- Предыдущая: store_10-08-25_13-40-21.txt
+- Текущая: store_10-08-25_13-51-46.txt
+## Дата анализа: 10-08-2025 13:57:20
+
+## Изменения в моделях
+### Новая модель: ProductImage
+1. ProductImage
+Поля: id: BigAutoField, product: ForeignKey, image: ImageField(100), code: CharField(100), is_main: BooleanField...
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at
+
+### Новая модель: Category
+1. Category
+Поля: id: BigAutoField, name: CharField(255), slug: SlugField(50), parent: ForeignKey
+Есть метод clean()
+
+### Новая модель: Product
+1. Product
+Поля: id: BigAutoField, code: CharField(100), name: CharField(255), description: TextField, category: ForeignKey...
+Есть метод clean()
+Методы: get_availability_status, get_next_by_created_at, get_next_by_updated_at...
+
+## Изменения в админке
+### Новый администратор: ProductImageAdmin
+- ProductImageAdmin
+Отображаемые поля: ('product_link', 'image_preview', 'code')
+
+### Новый администратор: CategoryAdmin
+- CategoryAdmin
+Отображаемые поля: ('name', 'parent_link', 'slug_display')
+
+### Новый администратор: ProductAdmin
+- ProductAdmin
+Отображаемые поля: ('name', 'code', 'category')

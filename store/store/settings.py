@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,6 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # простые app
+    'goods.apps.GoodsConfig',
+    'files.apps.FilesConfig',
+    'suppliers.apps.SuppliersConfig',
+    'customers.apps.CustomersConfig',
+    # непростые app
+    #'unit.apps.UnitConfig',
+    'request.apps.RequestConfig',
+    #'delivery.apps.DeliveryConfig',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +88,12 @@ DATABASES = {
     }
 }
 
+MEDIA_URL = '/media/'  # URL-префикс для медиафайлов
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Абсолютный путь к папке с медиа
 
+# Настройки для статических файлов (CSS, JS и т.д.)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -120,3 +134,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LANGUAGE_CODE = 'en-us'
