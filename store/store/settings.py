@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'unit.apps.UnitConfig',
     'request.apps.RequestConfig',
     'delivery.apps.DeliveryConfig',
+    'sale.apps.SaleConfig',
+    'trading_day.apps.TradingDayConfig',
 ]
 
 MIDDLEWARE = [
