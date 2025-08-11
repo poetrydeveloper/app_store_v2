@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'suppliers.apps.SuppliersConfig',
     'customers.apps.CustomersConfig',
     # непростые app
-    #'unit.apps.UnitConfig',
+    'unit.apps.UnitConfig',
     'request.apps.RequestConfig',
     'delivery.apps.DeliveryConfig',
 ]
