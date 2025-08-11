@@ -1,0 +1,17 @@
+# Детальный анализ изменений
+## Сравниваемые версии
+- Предыдущая: store_10-08-25_15-06-14.txt
+- Текущая: store_11-08-25_15-45-23.txt
+## Дата анализа: 11-08-2025 15:45:29
+
+## Изменения в моделях
+### Новая модель: Delivery
+1. Delivery
+Поля: id: BigAutoField, request_item: ForeignKey, delivery_date: DateField, quantity: PositiveIntegerField, status: CharField(20)...
+Есть метод clean()
+Методы: get_next_by_delivery_date, get_next_by_request_date, get_previous_by_delivery_date...
+
+## Изменения в админке
+### Новый администратор: DeliveryAdmin
+- DeliveryAdmin
+Отображаемые поля: ('id', 'delivery_date', 'request_info')
