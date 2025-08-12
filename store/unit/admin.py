@@ -1,9 +1,7 @@
-# unit/admin.py
 from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 from .models import ProductUnit
-
 
 @admin.register(ProductUnit)
 class ProductUnitAdmin(admin.ModelAdmin):
@@ -16,7 +14,7 @@ class ProductUnitAdmin(admin.ModelAdmin):
     list_filter = ('created_at', 'product__category')
     search_fields = ('serial_number', 'product__name', 'product__code', 'delivery__id')
     ordering = ('-created_at',)
-
+    autocomplete_fields = ['product', 'delivery']
     readonly_fields = ('serial_number', 'created_at', 'product_link', 'delivery_link')
 
     fieldsets = (
@@ -24,6 +22,13 @@ class ProductUnitAdmin(admin.ModelAdmin):
             'fields': ('serial_number', 'product_link', 'delivery_link', 'created_at')
         }),
     )
+
+    def save_model(self, request, obj, form, change):
+        """Специальная обработка сохранения в админке"""
+        print(f"Админка: сохранение ProductUnit (изменение: {change})")
+        # Убедитесь, что объект полностью валиден
+        obj.clean()
+        super().save_model(request, obj, form, change)
 
     def product_link(self, obj):
         if obj.product_id:

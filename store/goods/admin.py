@@ -60,6 +60,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'code', 'category', 'main_image_preview', 'images_count')
     readonly_fields = ('main_image_preview', 'images_list', 'add_images')
+    search_fields = ['name', 'code']
     fieldsets = (
         ('Основная информация', {
             'fields': ('code', 'name', 'category')

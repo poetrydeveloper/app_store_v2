@@ -36,7 +36,7 @@ class DeliveryAdmin(admin.ModelAdmin):
         'quantity_display', 'status_display', 'extra_info', 'units_created'
     )
     list_filter = ('status', 'extra_shipment', 'delivery_date')
-    search_fields = ('product__code', 'product__name', 'request_item__request__id')
+    search_fields = ('id','product__code', 'product__name', 'request_item__request__id')
     readonly_fields = (
         'status_display', 'request_info', 'product_info',
         'supplier_display', 'customer_display', 'price_display',
@@ -91,7 +91,7 @@ class DeliveryAdmin(admin.ModelAdmin):
             units = []
             try:
                 for _ in range(delivery.quantity):
-                    serial = ProductUnit.generate_serial_number(delivery.product)
+                    serial = ProductUnit.generate_serial_number(delivery.product, delivery)
                     units.append(ProductUnit(product=delivery.product, delivery=delivery, serial_number=serial))
             except Exception as e:
                 errors.append(f"Поставка #{delivery.id}: ошибка генерации серийников: {e}")
