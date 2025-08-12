@@ -1,4 +1,6 @@
 # trading_day/models.py
+from datetime import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -28,3 +30,9 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.get_type_display()} — {self.created_at:%H:%M}"
+
+    def save(self, *args, **kwargs):
+        # при сохранении подставляем дату из торгового дня
+        if not self.created_at and self.trading_day:
+            self.created_at = datetime.combine(self.trading_day.date, datetime.min.time())
+        super().save(*args, **kwargs)
