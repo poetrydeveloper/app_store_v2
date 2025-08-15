@@ -1,0 +1,107 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Добро пожаловать!</h1>
+                <p class="col-md-8 fs-4">
+                    Это пример использования Bootstrap 5 в Django через CDN.
+                </p>
+                <button class="btn btn-primary btn-lg btn-example" type="button">
+                    Пример кнопки
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Карточка 1</h5>
+                        <p class="card-text">Простое демо-содержимое карточки.</p>
+                        <a href="#" class="btn btn-outline-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Карточка 2</h5>
+                        <p class="card-text">Еще одна демо-карточка с текстом.</p>
+                        <a href="#" class="btn btn-outline-success">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Карточка 3</h5>
+                        <p class="card-text">Третья карточка в ряду.</p>
+                        <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Модальное окно
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Сайдбар</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        Ссылка 1
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        Ссылка 2
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        Ссылка 3
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Информация</h5>
+                <p>Дополнительная информация в сайдбаре с использованием компонентов Bootstrap.</p>
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle"></i> Это пример предупреждения!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Пример модального окна</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Это работающее модальное окно Bootstrap 5!</p>
+                <div class="mb-3">
+                    <label class="form-label">Пример поля</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

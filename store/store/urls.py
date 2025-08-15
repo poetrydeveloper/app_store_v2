@@ -24,6 +24,10 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_view, name='home'),
+    path('main/', views.main_view, name='main'),
+    path('goods/', views.goods_view, name='goods'),
+    path('search/', views.search_products, name='search_products'),
+    path('product/<int:pk>/', views.product_detail, name='product_detail'),
 ]
 
 if settings.DEBUG:
@@ -31,3 +35,6 @@ if settings.DEBUG:
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
+
+    # Обработка медиафайлов
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

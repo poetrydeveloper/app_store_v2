@@ -1,0 +1,43 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1>{{ product.name }}</h1>
+
+    {% if product.images.exists %}
+        <div id="productCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+            <div class="carousel-inner text-center">
+                {% for img in product.images %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ img.image.url }}"
+                             class="d-block mx-auto"
+                             style="max-width: 500px; max-height: 400px; object-fit: contain;"
+                             alt="{{ product.name }}">
+                    </div>
+                {% endfor %}
+            </div>
+            {% if product.images|length > 1 %}
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            {% endif %}
+        </div>
+    {% else %}
+        <img src="{% static 'images/no-image.png' %}"
+             class="d-block mx-auto mb-4"
+             style="max-width: 500px; max-height: 400px; object-fit: contain;"
+             alt="{{ product.name }}">
+    {% endif %}
+
+    <p>Цена: {{ product.price }} ₽</p>
+    <p>{{ product.description }}</p>
+</div>
+{% endblock %}

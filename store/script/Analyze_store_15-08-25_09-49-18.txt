@@ -1,0 +1,52 @@
+# Детальный анализ изменений
+## Сравниваемые версии
+- Предыдущая: store_11-08-25_22-27-06.txt
+- Текущая: store_15-08-25_09-49-18.txt
+## Дата анализа: 15-08-2025 09:49:25
+
+## Изменения в моделях
+### Новая модель: TradingDay
+1. TradingDay
+Поля: id: BigAutoField, date: DateField
+Есть метод clean()
+Методы: get_next_by_date, get_previous_by_date
+
+### Новая модель: HistoryEntry
+1. HistoryEntry
+Поля: request_id: UUIDField(32), data: JSONField, created_at: DateTimeField
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at
+
+### Новая модель: Event
+1. Event
+Поля: id: BigAutoField, trading_day: ForeignKey, type: CharField(20), created_at: DateTimeField, description: TextField
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at, get_type_display
+
+### Новая модель: Sale
+1. Sale
+Поля: id: BigAutoField, event: OneToOneField, product_unit: ForeignKey, price: DecimalField
+Есть метод clean()
+
+### Новая модель: ProductUnit
+1. ProductUnit
+Поля: id: BigAutoField, serial_number: CharField(100), product: ForeignKey, delivery: ForeignKey, created_at: DateTimeField
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at
+
+## Изменения в админке
+### Новый администратор: TradingDayAdmin
+- TradingDayAdmin
+Отображаемые поля: ('date', 'events_count')
+
+### Новый администратор: ProductUnitAdmin
+- ProductUnitAdmin
+Отображаемые поля: ('serial_number', 'product_link', 'delivery_link')
+
+### Новый администратор: SaleAdmin
+- SaleAdmin
+Отображаемые поля: ('event_link', 'product_unit_link', 'price')
+
+### Новый администратор: EventAdmin
+- EventAdmin
+Отображаемые поля: ('type', 'created_at', 'description_short')

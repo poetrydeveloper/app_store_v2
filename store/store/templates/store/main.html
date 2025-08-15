@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'store/base.html' %}
 
 {% block title %}Главная страница{% endblock %}
 
@@ -53,18 +53,24 @@
     <div class="col-lg-4">
         <div class="card mb-4">
             <div class="card-header">
-                <h5>Сайдбар</h5>
+                <h5>Страницы</h5>
             </div>
             <div class="card-body">
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">
-                        Ссылка 1
+                        Заявки.
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        Поставки.
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        Касса.
                     </a>
                     <a href="#" class="list-group-item list-group-item-action">
-                        Ссылка 2
+                        Товар.
                     </a>
                     <a href="#" class="list-group-item list-group-item-action">
-                        Ссылка 3
+                        Анализ.
                     </a>
                 </div>
             </div>
@@ -73,7 +79,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Информация</h5>
-                <p>Дополнительная информация в сайдбаре с использованием компонентов Bootstrap.</p>
+                <p>Дополнительная информация.</p>
                 <div class="alert alert-warning">
                     <i class="bi bi-exclamation-triangle"></i> Это пример предупреждения!
                 </div>

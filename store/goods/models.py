@@ -90,3 +90,8 @@ class Product(models.Model):
     def images(self):
         """Возвращает все изображения товара"""
         return self.product_images.all()
+
+    @property
+    def main_image(self):
+        """Возвращает главное изображение товара или None"""
+        return self.product_images.filter(is_main=True).first()

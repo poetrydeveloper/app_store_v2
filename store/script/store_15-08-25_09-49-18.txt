@@ -1,0 +1,131 @@
+# Проект: store | Дата: 15-08-25_09-49-18
+
+## Модели (кратко)
+
+1. LogEntry
+Поля: id: AutoField, action_time: DateTimeField, user: ForeignKey, content_type: ForeignKey, object_id: TextField...
+Есть метод clean()
+Методы: get_action_flag_display, get_admin_url, get_change_message...
+
+1. Permission
+Поля: id: AutoField, name: CharField(255), content_type: ForeignKey, codename: CharField(100)
+Есть метод clean()
+Методы: natural_key
+
+1. Group
+Поля: id: AutoField, name: CharField(150), permissions: ManyToManyField
+Есть метод clean()
+Методы: natural_key
+
+1. User
+Поля: id: AutoField, password: CharField(128), last_login: DateTimeField, is_superuser: BooleanField, username: CharField(150)...
+Есть метод clean()
+Методы: acheck_password, aget_all_permissions, aget_group_permissions...
+
+1. ContentType
+Поля: id: AutoField, app_label: CharField(100), model: CharField(100)
+Есть метод clean()
+Методы: get_all_objects_for_this_type, get_object_for_this_type, model_class...
+
+1. Session
+Поля: session_key: CharField(40), session_data: TextField, expire_date: DateTimeField
+Есть метод clean()
+Методы: get_decoded, get_next_by_expire_date, get_previous_by_expire_date
+
+1. HistoryEntry
+Поля: request_id: UUIDField(32), data: JSONField, created_at: DateTimeField
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at
+
+1. Category
+Поля: id: BigAutoField, name: CharField(255), slug: SlugField(50), parent: ForeignKey
+Есть метод clean()
+
+1. Product
+Поля: id: BigAutoField, code: CharField(100), name: CharField(255), description: TextField, category: ForeignKey...
+Есть метод clean()
+Методы: get_availability_status, get_next_by_created_at, get_next_by_updated_at...
+
+1. ProductImage
+Поля: id: BigAutoField, product: ForeignKey, image: ImageField(100), code: CharField(100), is_main: BooleanField...
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at
+
+1. Supplier
+Поля: id: BigAutoField, name: CharField(255), contact_person: CharField(255), phone: CharField(20), notes: TextField
+Есть метод clean()
+
+1. Customer
+Поля: id: BigAutoField, name: CharField(255), phone: CharField(20), email: EmailField(254), notes: TextField
+Есть метод clean()
+
+1. ProductUnit
+Поля: id: BigAutoField, serial_number: CharField(100), product: ForeignKey, delivery: ForeignKey, created_at: DateTimeField
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at
+
+1. Request
+Поля: id: BigAutoField, created_at: DateTimeField, status: CharField(20), notes: TextField
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at, get_status_display
+
+1. RequestItem
+Поля: id: BigAutoField, request: ForeignKey, delivered_quantity: PositiveIntegerField, is_completed: BooleanField, product: ForeignKey...
+Есть метод clean()
+
+1. Delivery
+Поля: id: BigAutoField, request_item: ForeignKey, delivery_date: DateField, quantity: PositiveIntegerField, status: CharField(20)...
+Есть метод clean()
+Методы: get_next_by_delivery_date, get_next_by_request_date, get_previous_by_delivery_date...
+
+1. Sale
+Поля: id: BigAutoField, event: OneToOneField, product_unit: ForeignKey, price: DecimalField
+Есть метод clean()
+
+1. TradingDay
+Поля: id: BigAutoField, date: DateField
+Есть метод clean()
+Методы: get_next_by_date, get_previous_by_date
+
+1. Event
+Поля: id: BigAutoField, trading_day: ForeignKey, type: CharField(20), created_at: DateTimeField, description: TextField
+Есть метод clean()
+Методы: get_next_by_created_at, get_previous_by_created_at, get_type_display
+
+## Админка (основное)
+- GroupAdmin
+  Отображаемые поля: ('__str__',)
+- UserAdmin
+  Отображаемые поля: ('username', 'email', 'first_name')
+- CategoryAdmin
+  Отображаемые поля: ('name', 'parent_link', 'slug_display')
+- ProductAdmin
+  Отображаемые поля: ('name', 'code', 'category')
+- ProductImageAdmin
+  Отображаемые поля: ('product_link', 'image_preview', 'code')
+- SupplierAdmin
+  Отображаемые поля: ('name', 'contact_person', 'phone')
+- CustomerAdmin
+  Отображаемые поля: ('name', 'phone', 'email_short')
+- ProductUnitAdmin
+  Отображаемые поля: ('serial_number', 'product_link', 'delivery_link')
+- RequestAdmin
+  Отображаемые поля: ('id', 'created_at', 'status_display')
+- RequestItemAdmin
+  Отображаемые поля: ('product', 'request_link', 'quantity_display')
+- DeliveryAdmin
+  Отображаемые поля: ('id', 'delivery_date', 'request_info')
+- SaleAdmin
+  Отображаемые поля: ('event_link', 'product_unit_link', 'price')
+- TradingDayAdmin
+  Отображаемые поля: ('date', 'events_count')
+- EventAdmin
+  Отображаемые поля: ('type', 'created_at', 'description_short')
+
+## Views
+Требуется ручная проверка
+
+## URLs
+- __debug__/
+- admin/
+- 
