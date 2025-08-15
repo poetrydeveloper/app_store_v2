@@ -1,0 +1,106 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Заявки{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Левое меню -->
+        <aside class="col-md-3 col-lg-2 bg-light p-3 border-end vh-100">
+            <h5 class="mb-3">Фильтр по статусу</h5>
+            <div class="list-group">
+                <a href="{% url 'request:requests_list' %}?status=candidate" class="list-group-item list-group-item-action {% if status == 'candidate' %}active{% endif %}">
+                    Кандидаты на заявку
+                </a>
+                <a href="{% url 'request:requests_list' %}?status=in_request" class="list-group-item list-group-item-action {% if status == 'in_request' %}active{% endif %}">
+                    В заявке
+                </a>
+                <a href="{% url 'request:requests_list' %}?status=extra" class="list-group-item list-group-item-action {% if status == 'extra' %}active{% endif %}">
+                    В заявке экстра
+                </a>
+            </div>
+        </aside>
+
+        <!-- Основная часть -->
+        <main class="col-md-9 col-lg-10 p-4">
+
+            <!-- Сетка заявок -->
+            <div class="row g-3" id="request-list">
+                {% for item in request_items %}
+                <div class="col-md-4 col-lg-3" id="request-item-{{ item.id }}">
+                    <div class="card h-100 shadow-sm">
+                        {% if item.product.main_image %}
+                            <img src="{{ item.product.main_image.image.url }}" class="card-img-top" alt="{{ item.product.name }}">
+                        {% else %}
+                            <img src="{% static 'images/no-image.png' %}" class="card-img-top" alt="{{ item.product.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.product.name }}</h5>
+                            <p class="card-text text-muted">Цена за единицу: {{ item.price_per_unit }} ₽</p>
+                            <p class="card-text text-muted">Количество: {{ item.quantity }}</p>
+                            <p class="card-text text-muted">Поставлено: {{ item.delivery_progress }}</p>
+                            <p class="card-text text-muted">Поставщик: {{ item.supplier }}</p>
+                            <p class="card-text text-muted">Покупатель: {{ item.customer }}</p>
+                            <span class="badge {% if item.is_completed %}bg-success{% else %}bg-secondary{% endif %}">
+                                {% if item.is_completed %}Выполнено{% else %}Не выполнено{% endif %}
+                            </span>
+
+                            <!-- Кнопка изменения статуса -->
+                            {% if item.status == 'candidate' %}
+                                <button class="btn btn-sm btn-primary mt-2 change-status-btn"
+                                        data-id="{{ item.id }}" data-status="in_request">
+                                    Перевести в заявку
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-warning">Нет заявок с выбранным статусом</div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </main>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.change-status-btn').click(function() {
+        const btn = $(this);
+        const itemId = btn.data('id');
+        const newStatus = btn.data('status');
+
+        $.ajax({
+            url: "{% url 'request:requests_change_status' %}",
+            method: "POST",
+            data: {
+                'item_id': itemId,
+                'status': newStatus,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Убираем кнопку и обновляем бейдж
+                    btn.remove();
+                    const badge = $('#request-item-' + itemId + ' .badge');
+                    badge.removeClass('bg-secondary').addClass('bg-info').text('В заявке');
+                } else {
+                    alert('Ошибка при обновлении статуса');
+                }
+            },
+            error: function() {
+                alert('Серверная ошибка');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

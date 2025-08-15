@@ -14,21 +14,36 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.conf import settings
+# from django.conf.urls.static import static
+# from django.contrib import admin
+# from django.urls import path, include
+# from django.urls import path
+# from . import views
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', views.home_view, name='home'),
+#     path('main/', views.main_view, name='main'),
+#     path('goods/', views.goods_view, name='goods'),
+#     path('search/', views.search_products, name='search_products'),
+#     path('product/<int:pk>/', views.product_detail, name='product_detail'),
+#     path('requests/', views.requests_list, name='requests_list'),
+#     path('requests/change_status/', views.change_status, name='requests_change_status'),
+# ]
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from django.urls import path
-from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home_view, name='home'),
-    path('main/', views.main_view, name='main'),
-    path('goods/', views.goods_view, name='goods'),
-    path('search/', views.search_products, name='search_products'),
-    path('product/<int:pk>/', views.product_detail, name='product_detail'),
+    path('', include('unit.urls')),
+    path('goods/', include('goods.urls')),
+    path('request/', include('request.urls')),
 ]
+
 
 if settings.DEBUG:
     import debug_toolbar
@@ -36,5 +51,14 @@ if settings.DEBUG:
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 
-    # Обработка медиафайлов
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         path('__debug__/', include(debug_toolbar.urls)),
+#
+#     ] + urlpatterns
+#
+#     # Обработка медиафайлов
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
